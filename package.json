@@ -1,0 +1,28 @@
+{
+  "name": "techdegree-project-6",
+  "version": "1.0.0",
+  "description": "A package designed to scrape a tshirt website and then log the results in a csv file.",
+  "main": "scraper.js",
+  "dependencies": {
+    "crawler": "^1.1.2",
+    "csv-writer": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woodevadev/Techdegree-Project-6.git"
+  },
+  "keywords": [
+    "Scraper",
+    "CSV"
+  ],
+  "author": "Alan Wood",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/woodevadev/Techdegree-Project-6/issues"
+  },
+  "homepage": "https://github.com/woodevadev/Techdegree-Project-6#readme"
+}
