@@ -2,10 +2,15 @@
 let fs = require('fs');
 let Crawler = require('crawler');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+let d= new Date();
+let year = d.getFullYear();
+let day = d.getDate();
+let month = d.getMonth() + 1;
+let formattedDate = year + '-' + month + '-' + day;
 
 //This initializes the csv file
 const csvWriter = createCsvWriter({
-  path: './data/data.csv',
+  path: `./data/${formattedDate}.csv`,
   header: [
       {id: 'title', title: 'TITLE'},
       {id: 'price', title: 'PRICE'},
@@ -39,7 +44,7 @@ let aPromise = new Promise(
         // This will be called for each crawled page
         callback : function (error, res, done) {
             if(error){
-                console.log(error);
+                console.error('Could not connect to the website...');
             }else{
                 var $ = res.$;
     
