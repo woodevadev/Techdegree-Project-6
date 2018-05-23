@@ -2,11 +2,16 @@
 let fs = require('fs');
 let Crawler = require('crawler');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
+//Time and date information
 let d= new Date();
 let year = d.getFullYear();
 let day = d.getDate();
 let month = d.getMonth() + 1;
 let formattedDate = year + '-' + month + '-' + day;
+let hour = d.getHours();
+let minute = d.getMinutes() + 1;
+let time = hour + ':' + minute;
 
 //This initializes the csv file
 const csvWriter = createCsvWriter({
@@ -14,8 +19,9 @@ const csvWriter = createCsvWriter({
   header: [
       {id: 'title', title: 'TITLE'},
       {id: 'price', title: 'PRICE'},
-      {id: 'url', title: 'URL'},
       {id: 'imageURL', title: 'IMAGEURL'},
+      {id: 'url', title: 'URL'},
+      {id: 'time', title: 'TIME'}
   ]
 });
 
@@ -79,7 +85,7 @@ aPromise.then(function(theArray){
         }else{
             var $ = res.$;
             //Make individual json string
-            myJSONString = `{"title":"${$("title").text()}","price":"${$(".price").text()}","url":"${res.request.href}","imageURL":"http://${res.request.host}/` + `${$("img").attr("src")}"}`;                                         
+            myJSONString = `{"title":"${$("title").text()}","price":"${$(".price").text()}","imageURL":"http://${res.request.host}/` + `${$("img").attr("src")}","url":"${res.request.href}", "time": "${time}"}`;                                         
 
             //parse the string
             var records = [JSON.parse(myJSONString)];
