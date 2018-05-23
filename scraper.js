@@ -58,16 +58,15 @@ let aPromise = new Promise(
     }
 )
 
-
-
 let myJSONString = '';
 let i = 0;
 
 //Used a promise to wait for the first 
 //crawl to take place
 aPromise.then(function(theArray){
-  var d = new Crawler({
-    maxConnections : 10,
+    var d = new Crawler({
+    rateLimit: 1000,
+    maxConnections : 1,
     // This will be called for each crawled page
     callback : function (error, res, done) {
         if(error){
@@ -76,15 +75,18 @@ aPromise.then(function(theArray){
             var $ = res.$;
             //Make individual json string
             myJSONString = `{"title":"${$("title").text()}","price":"${$(".price").text()}","url":"${res.request.href}","imageURL":"http://${res.request.host}/` + `${$("img").attr("src")}"}`;                                         
+
             //parse the string
-            const records = [JSON.parse(myJSONString)];
+            var records = [JSON.parse(myJSONString)];
+            
             //Append the record to the file
             csvWriter.writeRecords(records)       // returns a promise
                 .then(() => {
                     console.log('...Done');
-                });
+                    i++
+            });
         }
-        done()       
+        done();     
     }
 });
 d.queue(theArray);
